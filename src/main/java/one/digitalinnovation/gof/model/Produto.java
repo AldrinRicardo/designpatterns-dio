@@ -4,50 +4,33 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Cliente {
+public class Produto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
-	@ManyToOne
-	private Produto produto;
-	@ManyToOne
-	private Endereco endereco;
-
+	private int quantidade;
+	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getNome() {
 		return nome;
 	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public Produto getProduto() {
-		return produto;
+	public int getQuantidade() {
+		return quantidade;
 	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
+	
 }

@@ -9,6 +9,8 @@ import one.digitalinnovation.gof.model.Cliente;
 import one.digitalinnovation.gof.model.ClienteRepository;
 import one.digitalinnovation.gof.model.Endereco;
 import one.digitalinnovation.gof.model.EnderecoRepository;
+import one.digitalinnovation.gof.model.Produto;
+import one.digitalinnovation.gof.model.ProdutoRepository;
 import one.digitalinnovation.gof.service.ClienteService;
 import one.digitalinnovation.gof.service.ViaCepService;
 
@@ -27,6 +29,8 @@ public class ClienteServiceImpl implements ClienteService {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private ProdutoRepository produtoRepository;
 	@Autowired
 	private ViaCepService viaCepService;
 	
@@ -76,8 +80,16 @@ public class ClienteServiceImpl implements ClienteService {
 			return novoEndereco;
 		});
 		cliente.setEndereco(endereco);
-		// Inserir Cliente, vinculando o Endereco (novo ou existente).
+		// Verificar se o Produto do Cliente já existe.
+		Long produtoId = cliente.getProduto().getId();
+		Produto produto = cliente.getProduto();
+		produtoRepository.findById(produtoId).orElseGet(() -> {
+			// Caso não exista, criar um novo produto.
+			produtoRepository.save(produto);
+			return produto;
+		});		
+		// Inserir Cliente, vinculando o Endereco (novo ou existente) e o produto.
 		clienteRepository.save(cliente);
 	}
-
 }
+

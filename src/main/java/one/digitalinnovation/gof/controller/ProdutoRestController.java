@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import one.digitalinnovation.gof.model.Cliente;
-import one.digitalinnovation.gof.service.ClienteService;
+import one.digitalinnovation.gof.model.Produto;
+import one.digitalinnovation.gof.service.ProdutoService;
 
 /**
  * Esse {@link RestController} representa nossa <b>Facade</b>, pois abstrai toda
@@ -22,37 +22,37 @@ import one.digitalinnovation.gof.service.ClienteService;
  * @author falvojr
  */
 @RestController
-@RequestMapping("clientes")
-public class ClienteRestController {
+@RequestMapping("produtos")
+public class ProdutoRestController {
 
 	@Autowired
-	private ClienteService clienteService;
-	
+	private ProdutoService produtoService;
+
 	@GetMapping
-	public ResponseEntity<Iterable<Cliente>> buscarTodos() {
-		return ResponseEntity.ok(clienteService.buscarTodos());
+	public ResponseEntity<Iterable<Produto>> buscarTodos() {
+		return ResponseEntity.ok(produtoService.buscarTodos());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
-		return ResponseEntity.ok(clienteService.buscarPorId(id));
+	public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(produtoService.buscarPorId(id));
 	}
 
 	@PostMapping
-	public ResponseEntity<Cliente> inserir(@RequestBody Cliente cliente) {
-		clienteService.inserir(cliente);
-		return ResponseEntity.ok(cliente);
+	public ResponseEntity<Produto> inserir(@RequestBody Produto produto) {
+		produtoService.inserir(produto);
+		return ResponseEntity.ok(produto);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
-		clienteService.atualizar(id, cliente);
-		return ResponseEntity.ok(cliente);
+	public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produto) {
+		produtoService.atualizar(id, produto);
+		return ResponseEntity.ok(produto);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable Long id) {
-		clienteService.deletar(id);
+		produtoService.deletar(id);
 		return ResponseEntity.ok().build();
 	}
 }
